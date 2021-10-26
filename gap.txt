@@ -1,0 +1,121 @@
+The following is a description of the TYPE definition data found in the DSAT (Definition area) of a Basic09
+I-Code module. At the top is my determination of how decode must first "see" the unidentified gaps in a DSAT.
+The TYPE and DIM statements following that are the actual variables as I will be defining them in decode.
+From there, I first show what a regs (registers packet) TYPE statement looks like in I-Code.
+
+gap contents
+. single type
+... type size integer
+... unknown integer
+... byte first field
+... integer 2-n field bytes
+. multiple types
+... type size integer
+... unknown integer
+... byte first field
+... integer 2-n field bytes (includes other types)
+
+TYPE GAPS=tSize,unknown:INTEGER; firstField:BYTE; numFieldBytes:INTEGER
+DIM gap(20):GAPS
+
+=================== Registers Packet TYPE Definition ===================
+
+000A243906000A000E00130018001C0020 Unidentified
+
+000A 2439 06 000A 000E 0013 0018 001C 0020 TYPE REG=a,b,cc,dp:BYTE; x,y,u:INTEGER
+gap(0).tSize:=$000A ...................... Size (length) of the variable regs (DIM regs:REG)
+gap(0).unknown:=$2439 .................... This value can be different when you repack a
+ ......................................... module with changes to the DSAT
+gap(0).firstField:=$06 ................... First Field: a:BYTE
+gap(0).numFieldBytes:=12 ................. Remaining Fields: 6: b,cc,dp:BYTE; x,y,u:INTEGER
+
+06 + 4 = 000A + 4 = 000E + 5 = 0013 + 5 = 0018 + 4 = 001C + 4 = 0020
+
+========================================================================
+
+Below is a sample TYPE definition for variables that includes 4 separate TYPE statements, the 4th of which
+puts all 3 of the others in a single TYPE, which the variables o and p(10) are DIM'd to.
+
+If the numFieldBytes is an odd number, there is an even number of TYPE definitions within that gap. If the
+number is even, there is only one TYPE definition, or there is an odd number of TYPE definitions, within
+the gap.
+
+In many cases, the division between TYPE definitions is where the next integer value is less than the current
+integer value. In the example below, 000B is less than 001B and constitutes the beginning of the next TYPE
+definition. In some cases, since the first integer of the TYPE definition is the size (or length) of the TYPE,
+that value will be greater than the previous integer. In this case it is not so easy to determine the division
+between the current TYPE definition and the next.
+
+The difference in value between fields is not consistent across all type definitions in all modules. In this
+sample, the differences between all field values is 4, except where a new TYPE is being defined, and in the
+definition of TYP4. Then there is a difference of 7 between the last field of the previous TYPE and the first
+field of the current TYPE, and a difference of 10 between the first field value and the second field value in
+TYP4. This remains consistent for all of the TYPE definitions in this test module. However, if you look at the
+TYPE definition above for the regs TYPE, the value differences vary between 4 and 5 within the TYPE definition
+This makes it very difficult to determine if this data can help identify which field variables are associated
+with the TYPE definition. The exception to this is when there are STRING, ARRAY or RECORD variables defined as
+part of the TYPE. These variables have their definitions occurring immediately prior to the TYPE definition,
+and this can be used to associate those variables to the TYPE.
+
+TYPE TYP1=a,b,c:BYTE; d,e,f:INTEGER
+TYPE TYP2=g:BOOLEAN; h,i:REAL
+TYPE TYP3=j:STRING; k:STRING[5]
+TYPE TYP4=l:TYP1; m:TYP2; n:TYP3
+DIM o,p(10):TYP4
+
+0000 000900FF07000B000F00130017001B000B00FF26002A002E Unidentified
+gap(0).tSize:=$0009
+gap(0).unknown:=$00FF
+gap(0).firstField:=$07
+gap(0).numFieldBytes:=19
+
+  0000 0009 00FF 07 000B 000F 0013 0017 001B TYPE TYP1=a,b,c:BYTE; d,e,f:INTEGER
+  gap(0).tSize:=$0009
+  gap(0).unknown:=$00FF
+  gap(0).firstField:=$07 ................... First Field: a:BYTE
+  gap(0).numFieldBytes:=10 ................. Remaining Fields: 5: b,c:BYTE; d,e,f:INTEGER
+
+  07 + 4 = 000B + 4 = 000F + 4 = 0013 + 4 = 0017 + 4 = 001B + 4 = 001F
+
+  000F 000B 00FF 26 002A 002E .............. TYPE TYP2=g:BOOLEAN; h,i:REAL
+  gap(1).tSize:=$000B
+  gap(1).unknown:=$00FF
+  gap(1).firstField:=$26 ................... First Field: g:BOOLEAN;
+  gap(1).numFieldBytes:=4 .................. Remaining Fields: 2:  h,i:REAL
+
+  0026 - 001F = 7; 26 + 4 = 002A + 4 = 002E + 4 = 0032
+
+0018 0000 0020 Validated ................... j:STRING;
+001C 0020 0005 Validated ................... k:STRING[5]
+
+0020 002500FF39003D Unidentified
+
+  0020 0025 00FF 39 003D ................... TYPE TYP3=j:STRING; k:STRING[5]
+  gap(2).tSize:=$0025
+  gap(2).unknown:=$00FF
+  gap(2).firstField:=$39 ................... First Field: j:STRING;
+  gap(2).numFieldBytes:=2 .................. Remaining Fields: 1: k:STRING[5]
+
+  0039 - 0032 = 7; 39 + 4 = 003D + 4 = 0041
+
+0027 0000 0009 Validated ................... l:TYP1;
+002B 0009 000B Validated ................... m:TYP2;
+002F 0014 0025 Validated ................... n:TYP3
+
+0033 003900FF4800520056 Unidentified
+
+  0033 0039 00FF 48 0052 0056 .............. TYPE TYP4=l:TYP1; m:TYP2; n:TYP3
+  gap(3).tSize:=$0039
+  gap(3).unknown:=$00FF
+  gap(3).firstField:=$48 ................... First Field: l:TYP1;
+  gap(3).numFieldBytes:=4 .................. Remaining Fields: 2: m:TYP2; n:TYP3
+
+  0048 - 0041 = 7; 48 + 10 = 0052 + 4 = 0056
+
+003C 0016 0039 Validated ................... DIM o,
+0040 004F 023A 000A 0039 Validated ......... p(10):TYP4
+
+There is/are 3 Unidentified Gap(s) in the DSAT
+Offset: 0000 Size: . 24
+Offset: 0020 Size: .. 7
+Offset: 0033 Size: .. 9
