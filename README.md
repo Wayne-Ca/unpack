@@ -3,7 +3,7 @@
 
 This is currently the application decode. It only works on a single module. The future application unpack will allow processing of merged-module files. Until then you will have to use a modbuster application to separate the modules into separate files for use with decode.
 
-decode works for the most part. There are two areas where it still falls short, one of which will require a separate application. The first is identifying all record (complex type) statements. See the file gap.txt for more information. The second is completing the entire TYPE statement when not all fields were used in a single module. See the file types.txt for more information.
+decode works for the most part. There are two areas where it still falls short, one of which will require a separate application. The first is identifying all record (complex type) statements. See the file **gap.txt** for more information. The second is completing the entire TYPE statement when not all fields were used in a single module. See the file **types.txt** for more information.
 
 Watch this space as I will be publishing more data and information about decode and it's outstanding issue with record (complex type) statements.
 
@@ -18,7 +18,7 @@ The application:
 * buildSrc.B09
 * instruction.B09
 
-setOpts.B09
+* setOpts.B09
 
 Other tools:
 
