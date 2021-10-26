@@ -9,7 +9,7 @@ Watch this space as I will be publishing more data and information about decode 
 
 I am still learning to use git, so there may be times when an update isn't here when I thought it was.
 
-All of these files are text files. You will need to pack them with Basic09 to have stand-alone apps.
+All of these files are text files. You will need to pack them with Basic09 to have stand-alone apps. **DO NOT** try to load all of the application files into Basic09 at once. They will not fit into Basic09's workspace. Each file must be loaded and pack*'d separately. Each file contains more than one procedure, so make sure you pack* or the app won't run. Also, you cannot run the program in Basic09's workspace (even after packing).
 
 The application:
 
