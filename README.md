@@ -13,10 +13,10 @@ All of these files are text files. You will need to pack them with Basic09 to ha
 
 The application:
 
-decode.B09
-defVars.B09
-buildSrc.B09
-instruction.B09
+* decode.B09
+* defVars.B09
+* buildSrc.B09
+* instruction.B09
 
 setOpts.B09
 
@@ -29,6 +29,6 @@ readInitDB.B09 - reads the contents of the InitDB file
 
 Documentation:
 
-README.md - This file
-gap.txt - DSAT issue explanation
-types.txt - record (complex type) identification issue explanation
+* README.md - This file
+* gap.txt - DSAT issue explanation
+* types.txt - record (complex type) identification issue explanation
