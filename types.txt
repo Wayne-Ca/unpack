@@ -1,0 +1,19 @@
+The Trouble with TYPEs
+
+The benefit of records is that you can store dissimilar data into a single record. In addition, you can operate on that data over multiple procedures, allowing for discrimination. This way, only the parts of the record that pertain to a given function will be operated on in a specified procedure.
+
+The drawback to this is recreating the entire record statement when using decode to retrieve the source code. Basic09 only stores the data for variables and records that were actually used. Using the REG type as an example:
+
+TYPE REG=a,b,cc,dp:BYTE; x,y,u:INTEGER
+DIM regs:REG
+
+Let's say you only used the syscall function once, and the only registers used were a, x and y. This leaves b,cc,dp and u unused. When rebuilding the type statement, decode will only find references to a, x and y, so the resulting statement will look something like this:
+
+TYPE TYP1=b001,g001(3):BYTE; i002,i003:INTEGER; g002(2):BYTE
+DIM C0001:TYP1
+
+This is all decode can do with it. It's not a difficult fix, but to do so requires an app the will go through the source code looking for RUN syscall statements. Upon finding them, it will then be able to see that the variable C0001 was passed to syscall. This is the regs statement, so that app can then rebuild the statement (and rename all the field variables that were used throughout the procedure for TYP1) using a predefined TYPE statement similar to the one I used as an example.
+
+If only it were so simple with a complex application that passes records to multiple other procedures. To do this would require the application to look for all RUN statements where a record variable was passed and identify which procedure was called and which record statement(s) was/were passed to it. Then it will have to search through the source code for that procedure and identify which record in that procedure corresponds to the record from the calling procedure, identify which fields were operated on (used in any way) in that procedure, and build a temporary type to hold the data. Then it must repeat these steps for any other called procedures that have the same statement passed to them. Once it has done this, it can then build a more complete type statement to be placed in each of the procedures that have that record.
+
+And I say more complete because iot may still not be complete. Many times programmers would include "future use" field variables that they never used. If this is the case, then the type statement will never be complete.
