@@ -8,3 +8,27 @@ decode works for the most part. There are two areas where it still falls short, 
 Watch this space as I will be publishing more data and information about decode and it's outstanding issue with record (complex type) statements.
 
 I am still learning to use git, so there may be times when an update isn't here when I thought it was.
+
+All of these files are text files. You will need to pack them with Basic09 to have stand-alone apps.
+
+The application:
+
+decode.B09
+defVars.B09
+buildSrc.B09
+instruction.B09
+
+setOpts.B09
+
+Other tools:
+
+createDB.B09 - create a fresh database (used when the InitDB file is modified to create a new database)
+readVars.B09 - reads the contents of the variables file
+readLins.B09 - reads the contents of the line numbers file
+readInitDB.B09 - reads the contents of the InitDB file
+
+Documents:
+
+README.md - This file
+gap.txt - DSAT issue explanation
+types.txt - record (complex type) identification issue explanation
