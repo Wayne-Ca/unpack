@@ -17,7 +17,6 @@ The application:
 * defVars.B09
 * buildSrc.B09
 * instruction.B09
-
 * setOpts.B09
 
 Other tools:
