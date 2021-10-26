@@ -27,7 +27,7 @@ readVars.B09 - reads the contents of the variables file
 readLins.B09 - reads the contents of the line numbers file
 readInitDB.B09 - reads the contents of the InitDB file
 
-Documents:
+Documentation:
 
 README.md - This file
 gap.txt - DSAT issue explanation
