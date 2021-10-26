@@ -30,5 +30,5 @@ in that procedure, and build a temporary type to hold the data. Then it must rep
 have the same statement passed to them. Once it has done this, it can then build a more complete type statement to be placed in each
 of the procedures that have that record.
 
-And I say more complete because iot may still not be complete. Many times programmers would include "future use" field variables that
+And I say more complete because it may still not be complete. Many times programmers would include "future use" field variables that
 they never used. If this is the case, then the type statement will never be complete.
