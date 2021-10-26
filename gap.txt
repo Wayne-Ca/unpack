@@ -1,3 +1,5 @@
+About unidentified gaps in the DSAT (Description area or Data Storage Allocation Table) in a Basic09 I-Code module
+
 The following is a description of the TYPE definition data found in the DSAT (Definition area) of a Basic09
 I-Code module. At the top is my determination of how decode must first "see" the unidentified gaps in a DSAT.
 The TYPE and DIM statements following that are the actual variables as I will be defining them in decode.
