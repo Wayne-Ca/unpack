@@ -22,10 +22,10 @@ The application:
 
 Other tools:
 
-createDB.B09 - create a fresh database (used when the InitDB file is modified to create a new database)
-readVars.B09 - reads the contents of the variables file
-readLins.B09 - reads the contents of the line numbers file
-readInitDB.B09 - reads the contents of the InitDB file
+* createDB.B09 - create a fresh database (used when the InitDB file is modified to create a new database)
+* readVars.B09 - reads the contents of the variables file
+* readLins.B09 - reads the contents of the line numbers file
+* readInitDB.B09 - reads the contents of the InitDB file
 
 Documentation:
 
