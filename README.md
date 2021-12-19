@@ -31,3 +31,12 @@ Documentation:
 * README.md - This file
 * gap.txt - DSAT issue explanation
 * types.txt - record (complex type) identification issue explanation
+
+December 18, 2021
+I have added the disk image files for the mlost current working version of decode. The files are:
+
+* decode.os9 - binaries
+* decodePP.os9 - source in pretty print format
+* decodeSRC.os9 - source in standard print format
+
+The source in the repository has been modified since those disk images were made so don't try to use that version without expecting issues. The changes made are pertaining to the TYPE statement problem, as well as issues with TYPE/DIM/PARAM statement construction.
