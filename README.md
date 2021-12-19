@@ -34,7 +34,7 @@ Documentation:
 
 December 18, 2021
 
-I have added the disk image files for the mlost current working version of decode. The files are:
+I have added the disk image files for the most current working version of decode. The files are:
 
 * decode.os9 - binaries
 * decodePP.os9 - source in pretty print format
