@@ -6,6 +6,7 @@ This is currently the application decode. It only works on a single module. The 
 decode works for the most part. There are two areas where it still falls short, one of which will require a separate application. The first is identifying all record (complex type) statements. See the file **gap.txt** for more information. The second is completing the entire TYPE statement when not all fields were used in a single module. See the file **types.txt** for more information.
 
 When loading decode into Basic09, open Basic09 with 40K of workspace: OS9:basic09 #40k
+
 You will not be able to load and pack* the decode.B09 module without this much space. I have not tried to see if the defVars.B09, buildSrc.B09 or instruction.B09 files will load into a smaller space.
 
 Watch this space as I will be publishing more data and information about decode and it's outstanding issue with record (complex type) statements.
