@@ -47,3 +47,9 @@ I have added the disk image files for the most current working version of decode
 The source in the repository has been modified since those disk images were made so don't try to use that version without expecting issues. The changes made are pertaining to the TYPE statement problem, as well as issues with TYPE/DIM/PARAM statement construction.
 
 There is one other issue that I keep forgetting to document. When the TYPE, DIM and PARAM statements are being printed the last statement is being left out. I don't know why this is happening, and I have not been able to determine a fix. Also, I need to point anyone interested in looking into the types and dim statement problems to the module that performs that work. It is buildSrc.B09. Both issues  will be found in that source file.
+
+October 3, 2023
+
+I failed to include the EXEC file access token. To correct this I added the missing token to the decode.B09 and instruction.B09 source files. Testing shows that any file opened in EXEC mode will be correctly identified by decode.
+
+I haven't rebuilt the .os9 disk image files yet, so you will have to grab the decode.B09 and instruction.B09 source files and re-pack them. Be sure to use the pack* command in Basic09 for each file as they both include merged modules.
