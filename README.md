@@ -53,3 +53,7 @@ October 3, 2023
 I failed to include the EXEC file access token. To correct this I added the missing token to the decode.B09 and instruction.B09 source files. Testing shows that any file opened in EXEC mode will be correctly identified by decode.
 
 I haven't rebuilt the .os9 disk image files yet, so you will have to grab the decode.B09 and instruction.B09 source files and re-pack them. Be sure to use the pack* command in Basic09 for each file as they both include merged modules.
+
+October 4, 2023
+
+I have made the changes to the disk image files so the source, pretty print and I-Code modules reflect the change tp the decode and instruction modules allowing the EXEC file access mode to be properly decoded.
