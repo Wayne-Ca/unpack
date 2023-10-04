@@ -56,4 +56,4 @@ I haven't rebuilt the .os9 disk image files yet, so you will have to grab the de
 
 October 4, 2023
 
-I have made the changes to the disk image files so the source, pretty print and I-Code modules reflect the change tp the decode and instruction modules allowing the EXEC file access mode to be properly decoded.
+I have made the changes to the disk image files so the source, pretty print and I-Code modules reflect the change to the decode and instruction modules allowing the EXEC file access mode to be properly decoded.
