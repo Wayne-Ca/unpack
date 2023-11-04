@@ -7,14 +7,14 @@ operated on in a specified procedure.
 The drawback to this is recreating the entire record statement when using decode to retrieve the source code. Basic09 only
 stores the data for variables and records that were actually used. Using the REG type as an example:
 
-TYPE REG=a,b,cc,dp:BYTE; x,y,u:INTEGER
+TYPE REG=cc,a,b,dp:BYTE; x,y,u:INTEGER
 DIM regs:REG
 
-Let's say you only used the syscall function once, and the only registers used were a, x and y. This leaves b,cc,dp and u unused.
+Let's say you only used the syscall function once, and the only registers used were a, x and y. This leaves cc,b,dp and u unused.
 When rebuilding the type statement, decode will only find references to a, x and y, so the resulting statement will look something
 like this:
 
-TYPE TYP1=b001,g001(3):BYTE; i002,i003:INTEGER; g002(2):BYTE
+TYPE TYP1=g001(1),b001,g002(2):BYTE; i002,i003:INTEGER; g003(2):BYTE
 DIM C0001:TYP1
 
 This is all decode can do with it. It's not a difficult fix, but to do so requires an app that will go through the source code looking for
