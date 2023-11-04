@@ -57,3 +57,17 @@ I haven't rebuilt the .os9 disk image files yet, so you will have to grab the de
 October 4, 2023
 
 I have made the changes to the disk image files so the source, pretty print and I-Code modules reflect the change to the decode and instruction modules allowing the EXEC file access mode to be properly decoded.
+
+November 4, 2023
+
+I have made significant changes to the code. I added a new field variable to the variables file record which required updating almost every procedure. You must run createDB (the new one which you must pack and overwrite the old one) in order to update the initDB file (and the other work files in the DATA directory) to account for the new field variable.
+
+decode now has a new option (command line), -v(-V). This option allows you to see what version of decode you are using. This will become more important with future versions of the program.
+
+createDB now allows you to choose between keeping the default fg/bg colors you have saved in the old initDB file or using the current fg/bg colors as the default screen colors. These colors are set when decode is finished and exits back to NitrOS-9.
+
+There is a new output file created when <procname>Raw.txt is created. I wanted to be able to see what the token counts are after decode is finished, so I created an output file called <procname>Refs.txt that gets written when you see the token counts in the overlay window. It has the same format as the text in the window as to be easily identifiable.
+
+Because of an issue with Basic09 and the hi-res characters I use in building the source statements I had to revert to an older version of instruction.B09. Instruction still works, but there is now a case where if you have PRINT USING with no path inbetween, it displays PRINT  USING (note the extra space). I remember having that issue before, but I don't recall how I fixed it. It is not a major issue since Basic09 will remove the extra space without issue, but I am waiting to correct it as the last thing after all other issues with the DSAT and building the TYPE, DIM and PARAM statements have been dealt with.
+
+buildSrc.B09 is still very buggy. On the procedures I am testing with it currently runs without crashing, but on two of them the output of the DSAT Validation is not correct (read that waaaaaaay off). I am still working on it and have uploaded the source just so it is consistent with the other files. I have not yet advanced past the DSAT Validation code in order to keep the remainder of the code working the way it did before. This means that the current changes to the code concerning the DSAT have no bearing on the output of the source statements.
