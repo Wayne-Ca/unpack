@@ -75,3 +75,7 @@ buildSrc.B09 is still very buggy. On the procedures I am testing with it current
 November 7, 2023
 
 I have buildSrc working  with getHeader1-4, with the caveat that getHeader3 still assigns a field record to the wrong type. The source here has been updated, but the disk image files have not. I will be updating them shortly.
+
+Novembner 9, 2023
+
+I had forgotten to include RUN as an external command related to variables in the readVars.B09 procedure. I include it because a RUN statement can use a named variable instead of a named procedure for the procedure to be called.
