@@ -58,7 +58,7 @@ setup:
    7. Load unpack.B09
    8. Pack unpack (B:pack (unpack is the only procedure in the workspace, so procName is not necessary.)
    9. Kill unpack (B:kill (unpack is the only procedure in the workspace, so procName is not necessary.)
-  10: Load udecode.B09
+  10. Load udecode.B09
   11. Pack all procedures in the workspace to udecode (B:pack* udecode)
   12. Kill all procdedures in the workspace (B:kill*)
   13. Load udefVars.B09
