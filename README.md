@@ -35,8 +35,6 @@ I have added the disk image files for the most current version of unpack. The fi
 * unpack_40trk.os9 - source files for unpack, including test files
 * unpack_80trk.os9 - 80 track version of the 40 track disk image
 
-The source in the repository has been modified since those disk images were made so don't try to use that version without expecting issues. The changes made are pertaining to the TYPE statement problem, as well as issues with TYPE/DIM/PARAM statement construction.
-
 There is one other issue that I keep forgetting to document. When the TYPE, DIM and PARAM statements are being printed the last statement is being left out. I don't know why this is happening, and I have not been able to determine a fix. Also, I need to point anyone interested in looking into the types and dim statement problems to the module that performs that work. It is ubuildSrc.B09. Both issues  will be found in that source file.
 
 unpack usage:
