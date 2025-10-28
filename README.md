@@ -11,7 +11,7 @@ All of these files are text files. You will need to pack them with Basic09 to ha
 
 The application:
 
-* inpack.B09
+* unpack.B09
 * udecode.B09
 * udefVars.B09
 * ubuildSrc.B09
@@ -29,8 +29,6 @@ Documentation:
 * README.md - This file
 * gap.txt   - Description Area issue explanation
 * types.txt - record (complex type) identification issue explanation
-
-December 18, 2021
 
 I have added the disk image files for the most current version of unpack. The files are:
 
