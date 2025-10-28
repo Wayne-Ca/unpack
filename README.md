@@ -5,13 +5,7 @@ This is the application unpack. It works on merged module files, but is still a 
 
 unpack works for the most part. There are two areas where it still falls short, one of which will require a separate application. The first is identifying all record (complex type) statements. See the file **gap.txt** for more information. The second is completing the entire TYPE statement when not all fields were used in a single module. See the file **types.txt** for more information.
 
-When loading decode into Basic09, open Basic09 with 24K of workspace: OS9:basic09 #24k
-
-You will not be able to load and pack* the decode.B09 module without this much space. I have not tried to see if the defVars.B09, buildSrc.B09 or instruction.B09 files will load into a smaller space.
-
-Watch this space as I will be publishing more data and information about decode and it's outstanding issue with record (complex type) statements.
-
-I am still learning to use git, so there may be times when an update isn't here when I thought it was.
+When loading unpack into Basic09, open Basic09 with 24K of workspace: OS9:basic09 #24k
 
 All of these files are text files. You will need to pack them with Basic09 to have stand-alone apps. **DO NOT** try to load all of the application files into Basic09 at once. They will not fit into Basic09's workspace. Each file must be loaded and pack*'d separately. Each file contains more than one procedure, so make sure you pack* or the app won't run. Also, you cannot run the program in Basic09's workspace (even after packing).
 
