@@ -60,21 +60,21 @@ setup:
   9. Kill unpack (B:kill (unpack is the only procedure in the workspace, so procName is not necessary.)
   10. Load udecode.B09
   11. Pack all procedures in the workspace to udecode (B:pack* udecode)
-  12. Kill all procdedures in the workspace (B:kill*)
+  12. Kill all procedures in the workspace (B:kill*)
   13. Load udefVars.B09
   14. Pack all procedures in the workspace to udefVars (B:pack* udefVars)
-  15. Kill all procdedures in the workspace (B:kill*)
+  15. Kill all procedures in the workspace (B:kill*)
   16. Load ubuildSrc.B09
   17. Pack all procedures in the workspace to ubuildSrc (B:pack* ubuildSrc)
-  18. Kill all procdedures in the workspace (B:kill*)
+  18. Kill all procedures in the workspace (B:kill*)
 
 In the UNPACK directory (your current data directory) will be the following files (these files, except test and connect, are in the Files folder on gitHub):
  * connect          The test module
  * test             The merged test module (includes 2 object code subroutines for testing unpack's skipping routine)
- * vars.txt         The variables outut file from unpack
- * connectDSAT.txt  The description area outut file from decode
- * connectVars.txt  The variables outut file from decode
- * connectVDT.txt   The symbnol table outut file from decode
+ * vars.txt         The variables output file from unpack
+ * connectDSAT.txt  The description area output file from decode
+ * connectVars.txt  The variables output file from decode
+ * connectVDT.txt   The symbol table output file from decode
 
 The last 3 files show what the output is supposed to look like.
 The vars.txt file shows what the variables records currently look like.
