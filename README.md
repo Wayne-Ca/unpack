@@ -49,15 +49,15 @@ setup:
  * I suggest creating an UNPACK directory on your hard drive to work in. (/DD/UNPACK)
  * Create a subdirectory at the root level named DATA if it doesn't already exist. In the DATA directory create a subdirectory named UNPACK. (/DD/DATA/UNPACK)
  * The following instructions are for creating the data files and executable modules:
-   1. CHD to your UNPACK directory.
-   2. Copy all files from the unpack.os9 disk to the UNPACK directory. (OS0:dircopy /d2 . (if D2 is where the unpack disk is))
-   3. Open Basic09 with 24K of workspace. (OS9:basic09 #24k)
-   4. Load createUDB.B09
-   5. Run createUDB (Create the data files in /DD/DATA/UNPACK)
-   6. Kill createUDB (B:kill (createUDB is the only procedure in the workspace, so procName is not necessary.)
-   7. Load unpack.B09
-   8. Pack unpack (B:pack (unpack is the only procedure in the workspace, so procName is not necessary.)
-   9. Kill unpack (B:kill (unpack is the only procedure in the workspace, so procName is not necessary.)
+  1. CHD to your UNPACK directory.
+  2. Copy all files from the unpack.os9 disk to the UNPACK directory. (OS0:dircopy /d2 . (if D2 is where the unpack disk is))
+  3. Open Basic09 with 24K of workspace. (OS9:basic09 #24k)
+  4. Load createUDB.B09
+  5. Run createUDB (Create the data files in /DD/DATA/UNPACK)
+  6. Kill createUDB (B:kill (createUDB is the only procedure in the workspace, so procName is not necessary.)
+  7. Load unpack.B09
+  8. Pack unpack (B:pack (unpack is the only procedure in the workspace, so procName is not necessary.)
+  9. Kill unpack (B:kill (unpack is the only procedure in the workspace, so procName is not necessary.)
   10. Load udecode.B09
   11. Pack all procedures in the workspace to udecode (B:pack* udecode)
   12. Kill all procdedures in the workspace (B:kill*)
