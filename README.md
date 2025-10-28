@@ -38,9 +38,9 @@ I have added the disk image files for the most current version of unpack. The fi
 There is one other issue that I keep forgetting to document. When the TYPE, DIM and PARAM statements are being printed the last statement is being left out. I don't know why this is happening, and I have not been able to determine a fix. Also, I need to point anyone interested in looking into the types and dim statement problems to the module that performs that work. It is ubuildSrc.B09. Both issues  will be found in that source file.
 
 unpack usage:
-  unpack <pathname> #16k            The memory modifier is necessary. Don't leave it out.
-  unpack <pathname> -v (or -V) #16k This option is verbose mode. It will create the output file and display what's being done in greater detail.
-  unpack <pathname> -o (or -O) #16k This option is also verbose mode and display what's being done in greater detail, but will not create the output file.
+ * unpack <pathname> #16k            The memory modifier is necessary. Don't leave it out.
+ * unpack <pathname> -v (or -V) #16k This option is verbose mode. It will create the output file and display what's being done in greater detail.
+ * unpack <pathname> -o (or -O) #16k This option is also verbose mode and display what's being done in greater detail, but will not create the output file.
 
 setup:
  * Each file must be packed separately. udecode, udefVars abd ubuildSrc have sort procedures as part of that file. Use pack* (pack all) when packing those files.
