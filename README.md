@@ -5,7 +5,7 @@ This is the application unpack. It works on merged module files, but is still a 
 
 unpack works for the most part. There are two areas where it still falls short, one of which will require a separate application. The first is identifying all record (complex type) statements. See the file **gap.txt** for more information. The second is completing the entire TYPE statement when not all fields were used in a single module. See the file **types.txt** for more information.
 
-When loading decode into Basic09, open Basic09 with 40K of workspace: OS9:basic09 #40k
+When loading decode into Basic09, open Basic09 with 24K of workspace: OS9:basic09 #24k
 
 You will not be able to load and pack* the decode.B09 module without this much space. I have not tried to see if the defVars.B09, buildSrc.B09 or instruction.B09 files will load into a smaller space.
 
@@ -76,7 +76,7 @@ setup:
   17. Pack all procedures in the workspace to ubuildSrc (B:pack* ubuildSrc)
   18. Kill all procdedures in the workspace (B:kill*)
 
-In the UNPACK directory (your current data directory) will be the following files:
+In the UNPACK directory (your current data directory) will be the following files (these files, except test and connect, are in the Files folder on gitHub):
  * connect          The test module
  * test             The merged test module (includes 2 object code subroutines for testing unpack's skipping routine)
  * vars.txt         The variables outut file from unpack
