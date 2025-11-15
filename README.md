@@ -14,15 +14,16 @@ The application:
 * unpack.B09
 * udecode.B09
 * udefVars.B09
+* uusymTabVal.B09
 * ubuildSrc.B09
 * uinstruction.B09 (This file hasn't been converted yet.)
 
 Other tools:
 
 * createUDB.B09   - create a fresh database (used when the InitDB file is modified to create a new database)
-* ureadVars.B09   - reads the contents of the variables file
-* ureadLins.B09   - reads the contents of the line numbers file
 * ureadInitDB.B09 - reads the contents of the InitDB file (This file hasn't been converted yet.)
+* ureadLins.B09   - reads the contents of the line numbers file
+* ureadVars.B09   - reads the contents of the variables file
 
 Documentation:
 

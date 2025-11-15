@@ -1,0 +1,36 @@
+
+01 createUDB       10 uinstruction    D = Defined in
+03 udecode         14 ureadLins       U = Used in
+04 ulSort
+
+Line Reference Record - Record Array
+     Field Name         | 01 | 03 | 04 | 10 | 14 | description and notes
+======================= | == | == | == | == | == | ==================================================================
+TYPE LNREF=             |    | DU | DU |    |    | LiNe REFerence (in RAM Memory)
+     hLTyp:BYTE;        |    | DU | D  |    |    | Identify Line Reference Type (for finding duplicate references)
+     hLOff:INTEGER      |    | DU | DU |    |    | Identify Line Reference Offset (for finding duplicate references)
+----------------------- | -- | -- | -- | -- | -- | ------------------------------------------------------------------
+DIM linRefs(300):LNREF  |    | DU |    |    |    | Line Reference Record Array (300 vector elements)
+DIM linRef:LNREF        |    |    | DU |    |    | Line Reference Record (used for swapping records)
+PARAM linRefs(300):LNREF|    |    | DU |    |    | Line Reference Record Array (300 vector elements)
+======================= | == | == | == | == | == | ==================================================================
+
+Line Reference Record - File Record
+     Field Name         | 01 | 03 | 04 | 10 | 14 | description and notes
+======================= | == | == | == | == | == | ==================================================================
+TYPE LNREC=             | DU | DU | DU | DU | DU | LiNe RECord
+     lnRecNum,          | DU | DU | D  | D  | DU | Line Record Number (within the file)
+     lnRefCnt:INTEGER;  | DU | DU | D  | D  | DU | Line Reference Count (how many times this reference occurs in I-Code)
+     lnTyp:BYTE;        | DU | DU | D  | D  | DU | Line Type: token used:
+                        |    |    |    |    |    |            20: GOTO
+                        |    |    |    |    |    |            22: GOSUB
+                        |    |    |    |    |    |            31: RESTORE
+                        |    |    |    |    |    |            3B: THEN <lnRef> (also used in ON <expr> GOTO/GOSUB)
+     lnOff:INTEGER;     | DU | DU | D  | DU | DU | Line Offset
+     lnNum:STRING[5]    | DU | DU | D  | DU | DU | Line Number
+----------------------- | -- | -- | -- | -- | -- | ------------------------------------------------------------------
+DIM linRec:LNREC        | DU | DU | DU | DU | DU | File Record Variable (stored on disk)
+DIM linRecs(2):LNREC    |    |    | DU |    |    | File Record Array (used for record swapping)
+======================= | == | == | == | == | == | ==================================================================
+     Field Name         | 01 | 03 | 04 | 10 | 14 | description and notes
+======================= | == | == | == | == | == | ==================================================================

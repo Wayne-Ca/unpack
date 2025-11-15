@@ -1,0 +1,118 @@
+
+02 unpack          D = Defined in
+                   U = Used in
+
+I-Code Header Record
+     Field Name         | 02 | description and notes
+======================= | == | ==========================================================================
+TYPE HEAD=              |    | I-Code Module Header Record
+     sb,                | DU | Sync Bytes *)
+     ms,                | DU | Module Size *)
+     mno:INTEGER;       | D  | Module Name Offset Address *)
+     tl,                | DU | Type/Language Code *)
+     ar,                | D  | Attributes/Revision Code *)
+     hp:BYTE;           | DU | Header Parity *)
+     eo,                | DU | Execution Offset Address *)
+     pss,               | DU | Permanent Storage Size *)
+     sto,               | DU | Symbol Table Offset Address *)
+     dao,               | DU | Description Area Offset Address *)
+     pd,                | D  | Procedure Data Size *)
+     dso,               | DU | First Data Statement Offset *)
+     eso:INTEGER;       | D  | First Exec Statement Offset *)
+     ps,                | D  | Procedure Status *)
+     mnl:BYTE;          | DU | Module Name Length *)
+     name:STRING        | DU | Procedure Name *)
+----------------------- | -- | --------------------------------------------------------------------------
+DIM header:HEAD         | DU | Header Record
+======================= | == | ==========================================================================
+
+Object-Code Header Record
+     Field Name         | 02 | description and notes
+======================= | == | ==========================================================================
+TYPE OHEAD=             | DU | Object Code Module Header Record
+     osb,               | D  | Sync Bytes *)
+     oms,               | DU | Module Size *)
+     ono:INTEGER;       | D  | Module Name Offset Address *)
+     otl,               | D  | Type/Language Code *)
+     oar,               | D  | Attributes/Revision Code *)
+     ohp:BYTE;          | D  | Header Parity *)
+     oeo,               | D  | Execution Offset Address *)
+     opss,              | D  | Permanent Storage Size *)
+     oname:STRING       | DU | Procedure Name *)
+----------------------- | -- | --------------------------------------------------------------------------
+DIM oheader:OHEAD       | DU | Oheader Record
+======================= | == | ==========================================================================
+
+01 createUDB       D = Defined in
+02 unpack          U = Used in
+03 udecode
+05 udefVars
+08 ubuildSrc
+
+Registers Record - Record Array
+     Field Name         | 01 | 02 | 03 | 05 | 08 | description and notes
+======================= | == | == | == | == | == | ==================================================================
+TYPE REG=               | DU | DU | DU | DU | DU | REGister Record
+     cc,                | D  | D  | D  | D  | D  | Register Carry Code
+     a,                 | DU | DU | DU | DU | DU | Register A
+     b,                 | DU | DU | DU | DU | DU | Register B
+     dp:BYTE;           | D  | D  | D  | D  | D  | Register Direct Page
+     x,                 | D  | DU | DU | DU | DU | Register X
+     y,                 | D  | D  | D  | D  | D  | Register Y
+     u:INTEGER          | D  | D  | D  | D  | D  | Register U
+----------------------- | -- | -- | -- | -- | -- | ------------------------------------------------------------------
+DIM regs:REG            | DU | DU | DU | DU | DU | Register Record
+======================= | == | == | == | == | == | ==================================================================
+
+01 createUDB       08 ubuildSrc       D = Defined in
+03 udecode         09 udsSort         U = Used in
+
+DSAT Map Record - Record Array
+     Field Name         | 01 | 03 | 08 | 09 | description and notes
+======================= | == | == | == | == | ==================================================================
+TYPE DSMP=              | DU | DU | DU | DU | DSat MaP
+     dsOf,              | DU | D  | DU | DU | DSAT Offset Address
+     dsDm,              | DU | D  | DU | D  | DSAT Data Memory Address
+     dsMSz,             | DU | D  | DU | D  | DSAT Data Memory Size
+     dsSz:INTEGER       | DU | D  | DU | D  | DSAT Entry Size
+----------------------- | -- | -- | -- | -- | ------------------------------------------------------------------
+DIM DSMap(100):DSMP     | DU | DU | DU |    | DSAT Map Records Array
+DIM DSMap:DSMP          |    |    |    | DU | DSAT Map Record (used for swapping records)
+PARAM DSMaps(100):DSMP  |    |    |    | DU | DSAT Map Records Array
+======================= | == | == | == | == | ==================================================================
+
+08 ubuildSrc       D = Defined in
+                   U = Used in
+
+Gaps Map Record - Record Array
+     Field Name         | 08 | description and notes
+======================= | == | ==========================================================================
+TYPE GAPR=              | DU | GAP Record
+     gapOff,            | DU | DSAT Gap Offset Address
+     gapSize:INTEGER;   | DU | DSDAT Gap Size
+     gapValid:BOOLEAN   | DU | DSAT Gap Validated (TRUE=yes FALSE=no)
+----------------------- | -- | --------------------------------------------------------------------------
+DIM tmpGap(20),         | DU | Temporary Gap Records (for adding new gaps as existing gaps are validated)
+    gapRec(20):GAPR     | DU | Gap Records
+======================= | == | ==========================================================================
+
+TYPE Map Record - Record Array
+     Field Name         | 08 | description and notes
+======================= | == | ==================================================================
+TYPE TYPR=              | DU | TYPe Record
+     typNum:INTEGER;    | DU | Type Record Number
+     typName:STRING[7]; | DU | Type Name (TYP+typNum)
+     typFld:BYTE        | DU | Type Number of Fields
+----------------------- | -- | ------------------------------------------------------------------
+DIM typRec(20):TYPR     | DU | Type Records
+======================= | == | ==================================================================
+
+Records Map Record - Record Array (will be obsolete)
+     Field Name         | 08 | description and notes
+======================= | == | ==================================================================
+TYPE RECS=              | DU | RECordS Record
+     recID:INTEGER;     | DU | Record ID Number
+     recName:STRING[7]  | DU | Record Variable Name
+----------------------- | -- | ------------------------------------------------------------------
+DIM rec(20):RECS        | DU | Record Records
+======================= | == | ==================================================================

@@ -1,0 +1,111 @@
+
+01 createUDB       08 ubuildSrc       D = Defined in
+03 udecode         10 uinstruction    U = Used in
+05 udefVars        13 ureadInitDB
+06 uvSort          15 ureadVars
+07 usymTabVal
+
+Variable Record - Record Array
+     Field Name         | 01 | 03 | 05 | 06 | 07 | 08 | 10 | 13 | 15 | description and notes
+======================= | == | == | == | == | == | == | == | == | == | ==================================================================
+TYPE VREC=              | DU | DU | DU | DU |    | DU | DU |    | DU | Variable RECord (in RAM memory)
+     vTyp,              | DU | DU | DU | DU |    | DU | DU |    | DU | Variable (Token) Type (I-Code Area instruction tokens)
+     nTyp:BYTE;         | DU | DU | DU | DU |    | DU | DU |    | DU | Variable Type:
+                        |    |    |    |    |    |    |    |    |    |   nTyp 0-2: BYTE, INTEGER, REAL, BOOLEAN, STRING, record, array
+                        |    |    |    |    |    |    |    |    |    |             80-8C/F2-F9: named variable references
+                        |    |    |    |    |    |    |    |    |    |   nTyp = 0: TYPE field variables
+                        |    |    |    |    |    |    |    |    |    |   nTyp = 1: DIM variables
+                        |    |    |    |    |    |    |    |    |    |   nTyp = 2: PARAM variables
+                        |    |    |    |    |    |    |    |    |    |   nTyp = 3: variable type:
+                        |    |    |    |    |    |    |    |    |    |             FOR statement 46 (TO) and 47 (STEP)
+                        |    |    |    |    |    |    |    |    |    |             NEXT statement 00, 01, 02, and 03
+                        |    |    |    |    |    |    |    |    |    |               00 INT no STEP
+                        |    |    |    |    |    |    |    |    |    |               01 INT w/ STEP
+                        |    |    |    |    |    |    |    |    |    |               02 REAL no STEP
+                        |    |    |    |    |    |    |    |    |    |               03 REAL w/ STEP
+                        |    |    |    |    |    |    |    |    |    |             A0 (subroutine name)
+     nVar:BOOLEAN;      | DU | DU |    | DU |    | D  | D  |    | DU | Named Variable
+                        |    |    |    |    |    |    |    |    |    |   NEXT Variable fields:
+                        |    |    |    |    |    |    |    |    |    |           |      | named    |        |        |        |
+                        |    |    |    |    |    |    |    |    |    |     NEXT  |      | variable | TO     | STEP   | ivgt   | eol
+                        |    |    |    |    |    |    |    |    |    |     token | vTyp | offset   | offset | offset | offset | token
+                        |    |    |    |    |    |    |    |    |    |     ----- | ---- | ------   | ------ | ------ | ------ | -----
+                        |    |    |    |    |    |    |    |    |    |       14  | 02   | 07D3     | 07D8   | 0000   | 004C   | 3F
+                        |    |    |    |    |    |    |    |    |    |   vTyp = 81 or 00 or 01: nVar = TRUE  (81)    nTyp = 1 intReal = 0
+                        |    |    |    |    |    |    |    |    |    |                          nVar = FALSE (00,01) nTyp = 3 intReal = 1
+                        |    |    |    |    |    |    |    |    |    |   vTyp = 82 or 02 or 03: nVar = TRUE  (82)    nTyp = 1 intReal = 0
+                        |    |    |    |    |    |    |    |    |    |                          nVar = FALSE (02,03) nTyp = 3 intReal = 2
+                        |    |    |    |    |    |    |    |    |    |     intReal Values:
+                        |    |    |    |    |    |    |    |    |    |       0 = Named Variable (I-Code Area token values)
+                        |    |    |    |    |    |    |    |    |    |       1 = INTEGER
+                        |    |    |    |    |    |    |    |    |    |       2 = REAL
+     vOff,              | DU | DU |    | DU |    | D  | DU |    | DU | Variable Offset (I-Code Area variable pointer,
+                        |    |    |    |    |    |    |    |    |    |  points to Data Memory, VDT or DSAT)
+     vdOff,             | DU | DU |    | DU |    | D  | D  |    | DU | VDT (Symbol Table) Offset
+     dsOff,             | DU | DU |    | DU |    | DU | D  |    | DU | DSAT (Description Area) Offset
+     dmOff,             | DU | DU |    | DU |    | DU | D  |    | DU | Data Memory Offset
+     fOff,              | DU | DU |    | DU |    | D  | D  |    | DU | Field (Record Relative) Offset
+     pOff:INTEGER       | DU | DU |    | DU |    | D  | D  |    | DU | Parameter (Data Memory) Offset
+----------------------- | -- | -- | -- | -- | -- | -- | -- | -- | -- | ------------------------------------------------------------------
+DIM varRec(400):VREC    | DU | DU |    | DU |    |    | DU |    | DU | Variable Record Array (400 vector elements)
+DIM varRec:VREC         |    |    |    |    |    | DU |    |    |    | Variable Record (used for swapping records)
+PARAM varRecs(400):VREC |    |    |    |    |    | DU |    |    |    | Variable Record Array (400 vector elements)
+======================= | == | == | == | == | == | == | == | == | == | ==================================================================
+
+Variable Record - File Record
+     Field Name         | 01 | 03 | 05 | 06 | 07 | 08 | 10 | 13 | 15 | description and notes
+======================= | == | == | == | == | == | == | == | == | == | ==================================================================
+TYPE VFP1=              | DU | DU |    | DU | DU | DU | DU | DU | DU | Variable File (Record) Part 1
+     vdTkn:BYTE;        | DU | DU |    | DU | DU | DU | D  | D  | DU | VDT Token (VDT token this variable)
+     vdPtr,             | DU | DU |    | DU | DU | D  | D  | D  | DU | VDT Pointer (pointer to VDT offset this variable)
+     vdSiz,             | DU | DU |    | DU | D  | D  | D  | D  | DU | VDT Entry Size (number of bytes in VDT entry this variable)
+     dsPtr,             | DU | DU |    | DU | D  | D  | D  | D  | DU | DSAT Pointer (pointer to DSAT offset this variable)
+     dsvSiz,            | DU | DU |    | DU | D  | D  | D  | D  | DU | DSAT Variable Size (variable size this variable)
+     dsSiz,             | DU | DU |    | DU | D  | D  | D  | D  | DU | DSAT Entry Size (number of bytes in DSAT entry this variable)
+     dmSiz,             | DU | DU |    | DU | D  | D  | D  | D  | DU | Data Memory Size (size of memory allocated this variable)
+     fSiz,              | DU | DU |    | DU | D  | D  | D  | D  | DU | Field Size
+     pSiz,              | DU | DU |    | DU | D  | D  | D  | D  | DU | Parameter Size
+     elem1,             | DU | DU |    | DU | D  | D  | D  | D  | DU | Array Element 1 (can be matrix, table or vector)
+     elem2,             | DU | DU |    | DU | D  | D  | D  | D  | DU | Array Element 2 (can be table or vector)
+     elem3,             | DU | DU |    | DU | D  | D  | D  | D  | DU | Array Element 3 (will be vector)
+     vSRLen:INTEGER     | DU | DU |    | DU | D  | D  | D  | D  | DU | Variable STRING or Record Length (vector element size used in
+                        |    |    |    |    |    |    |    |    |    |  arrays due to dmSiz being the size of the array) only applies to
+                        |    |    |    |    |    |    |    |    |    |  STRING and record variables as vector element size for BYTE,
+                        |    |    |    |    |    |    |    |    |    |  INTEGER, REAL and BOOLEAN types is defined by the type
+----------------------- | -- | -- | -- | -- | -- | -- | -- | -- | -- | ------------------------------------------------------------------
+TYPE VFP2=              | DU | DU |    |    | DU | DU | DU | DU | DU | D U  | Variable File (Record) Part 2
+     vArray:STRING[19]; | DU | DU |    | DU | D  | D  | D  | D  | DU | Variable Array Elements String (the numbers in parentheses)
+     vName:STRING[29];  | DU | DU |    | DU | DU | D  | DU | D  | DU | Variable Name String
+     vStrLen:STRING[7]; | DU | DU |    | DU | D  | D  | D  | D  | DU | Variable String Length String (the number in square brackets)
+     vRecNum,           | DU | DU |    | D  | D  | D  | D  | D  | DU | Variable Record Number (the position in the varDefs file)
+     vRefCnt,           | DU | DU |    | D  | D  | D  | D  | D  | DU | Variable Reference Count (number of times this variable is
+                        |    |    |    |    |    |    |    |    |    |  referenced in the I-Code)
+     intReal,           | DU | DU |    | DU | D  | D  | D  | D  | DU | INTEGER or REAL (used in NEXT statements, see Record Array above)
+     pVar:INTEGER       | DU | DU |    | D  | D  | D  | D  | D  | DU | Field Variable's Parent Record Variable Token
+----------------------- | -- | -- | -- | -- | -- | -- | -- | -- | -- | ------------------------------------------------------------------
+TYPE VFP3=              | DU | DU |    | DU | D  | DU | DU | DU | DU | Variable File (Record) Part 3
+     mTyp,              | DU | DU |    | DU | D  | D  | D  | D  | DU | Variable Type (1,2 or 3)
+                        |    |    |    |    |    |    |    |    |    |  1 = BYTE, INTEGER, REAL, BOOLEAN
+                        |    |    |    |    |    |    |    |    |    |  2 = STRING (points to DSAT from I-Code Area)
+                        |    |    |    |    |    |    |    |    |    |  3 = All Other Variables (points to VDT from I-Code Area)
+     vLnk,              | DU | DU |    | D  | D  | D  | D  | D  | DU | Unused field (will use in future update, links RUN statement to
+                        |    |    |    |    |    |    |    |    |    |  variable instead of named subroutine)
+     fNum:BYTE;         | DU | DU |    | DU | D  | D  | D  | D  | DU | Number Of Fields This Record
+     pRec,              | DU | DU |    | DU | D  | D  | D  | D  | DU | Potential Record (I-Code Area decode, defVars determines records
+                        |    |    |    |    |    |    |    |    |    |  based on VDT entry)
+     pFld:BOOLEAN       | DU | DU |    | DU | D  | D  | D  | D  | DU | Potential Field (I-Code Area decode, defVars determines fields
+                        |    |    |    |    |    |    |    |    |    |  based on VDT entry)
+----------------------- | -- | -- | -- | -- | -- | -- | -- | -- | -- | ------------------------------------------------------------------
+TYPE VFRC=              | DU | DU |    | DU | DU | DU | DU | DU | DU | Variable File ReCord
+     vp1:VFP1;          | DU | DU |    | DU | DU | DU | D  | D  | DU | Variable File (Record) Part 1
+     vp2:VFP2;          | DU | DU |    | DU | DU | D  | DU | D  | DU | Variable File (Record) Part 2
+     vp3:VFP3           | DU | DU |    | DU | D  | D  | D  | D  | DU | Variable File (Record) Part 3
+----------------------- | -- | -- | -- | -- | -- | -- | -- | -- | -- | ------------------------------------------------------------------
+DIM varFRec,            | DU | DU |    | DU | DU | DU | DU | DU | DU | File Record Variable (stored on disk)
+    defFRec:VFRC        |    | DU |    |    |    |    |    |    |    | File Default Record Variable (used to zero a record entry before
+                        |    |    |    |    |    |    |    |    |    |  assigning values to the fields)
+DIM varFRec2:VFRC       |    |    |    |    |    | DU |    |    |    | File Record (used for record comparison)
+DIM varFRecs(2):VFRC    |    |    |    | DU |    |    |    |    |    | File Record Array (used for record swapping)
+======================= | == | == | == | == | == | == | == | == | == | ==================================================================
+     Field Name         | 01 | 03 | 05 | 06 | 07 | 08 | 10 | 13 | 15 | description and notes
+======================= | == | == | == | == | == | == | == | == | == | ==================================================================

@@ -1,0 +1,288 @@
+
+01 createUDB       06 uvSort          11 uhex$           D = Defined in
+02 unpack          07 usymTabVal      12 uDRPN           U = Used in
+03 udecode         08 ubuildSrc       13 ureadInitDB     P = Received as a parameter
+04 ulSort          09 udsSort         14 ureadLins
+05 udefVars        10 uinstruction    15 ureadVars
+
+unpack total variables: 189 (not including record variables and fields)
+      passed as parameters: 27
+      unique variables: 117 (so far)
+
+  Variable Name  | 01 | 02 | 03 | 04 | 05 | 06 | 07 | 08 | 09 | 10 | 11 | 12 | 13 | 14 | 15 | Description and Notes
+================ | == | == | == | == | == | == | == | == | == | == | == | == | == | == | == | =========================================================
+common variables | 65 Variables  21 Parameters                                              | 
+001 outPath      | DU | DU |    |    |    |    |    | DUP|    | DUP|    |    | DU |    | DU | BYTE output path number
+002 filePath     |    | DU | DUP|    | DUP|    | DUP| DUP|    | DUP|    |    |    |    |    | BYTE infile path number
+003 byteVal      |    |    | DU | DU |    |    | DU | DU |    | DU |    |    |    |    |    | BYTE value read from I-Code module
+004 tokenVal     |    |    | DU |    |    |    |    |    |    | DU |    |    |    |    |    | BYTE I-Code token read from I-Code module
+005 vPath        |    |    | DU |    | DU | DUP| DU | DU |    | DU |    |    |    |    | DU | BYTE variable file path number
+006 lnPath       |    |    | DU | DUP|    |    |    |    |    | DU |    |    |    | DU |    | BYTE line number file path number
+007 dPath        |    |    | DU |    | DU |    |    | DU |    | DU |    |    |    |    | DU | BYTE data file path number
+008 tokenCode    |    |    |    |    | DU |    |    |    |    | DU |    |    |    |    |    | BYTE I-Code token read from procdedure
+009 vToken       |    |    |    |    | DU |    | DU |    |    |    |    |    |    |    |    | BYTE symbol table variable token
+010 varCount     | DU |    | DU |    | DU |    | DU | DU |    | DU |    |    |    |    | DU | INTEGER total variable count
+                 |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |   Passed to uvSort as varCount-1
+                 |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |   Received by uvSort as top 
+011 linCount     | DU |    | DU |    |    |    |    |    |    | DU |    |    |    | DU |    | INTEGER total Line number reference count
+                 |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |   Passed by udecode as linCount-1
+                 |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |   Received by ulSort as top
+012 er           | DU | DU | DUP| DUP| DUP| DUP| DUP| DUP| DUP| DUP|    |    |    |    |    | INTEGER error number
+013 varRefs      | DU |    | DU |    |    |    |    |    |    |    |    |    |    |    |    | INTEGER total variable references
+014 lineRefs     | DU |    | DU |    |    |    |    |    |    |    |    |    |    |    |    | INTEGER total line reference count
+015 maxData      |    | DU |    |    |    |    |    | DUP|    |    |    |    |    |    |    | INTEGER data memory size
+016 tpVars       |    | DU | DUP|    | DUP|    |    |    |    |    |    |    |    |    |    | INTEGER total program variables
+017 nextRef      |    |    | DU |    |    |    |    |    |    | DU |    |    |    |    |    | INTEGER offset references in a NEXT statement
+018 modCnt       |    |    | DU |    |    |    |    |    |    | DU |    |    |    |    |    | INTEGER module offset counter
+019 intVal       |    |    | DU | DU |    |    |    | DU |    | DU | DUP|    |    |    |    | INTEGER value read from I-Code module
+                 |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |   Passed by instruction to uhex$
+020 lnCnt        |    |    | DU |    |    |    |    |    |    | DU |    |    |    | DU |    | INTEGER current count of line reference records
+021 lastOff      |    |    | DU |    |    |    |    |    |    | DU |    |    |    |    |    | INTEGER last line reference offset
+                 |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |   Except ubuildSrc, which uses it in DSAT validation
+022 lastNum      |    |    | DU |    |    |    |    |    |    | DU |    |    |    |    |    | INTEGER last line number
+023 lower        |    |    |    | DU |    | DU |    |    | DU |    |    |    |    |    |    | INTEGER sort lower bound
+024 upper        |    |    |    | DU |    | DU |    |    | DU |    |    |    |    |    |    | INTEGER sort upper bound
+025 bottom       |    |    |    | DUP|    | DUP|    |    | DUP|    |    |    |    |    |    | INTEGER Passed by udecode as constant value 0
+026 top          |    |    |    | DUP|    | DUP|    |    | DUP|    |    |    |    |    |    | INTEGER Passed by udecode as linCount-1
+027 recNum       |    |    |    |    | DU |    |    | DU |    |    |    |    | DU |    | DU | INTEGER current variable file record number
+028 vPointer     |    |    |    |    | DU |    | DU |    |    |    |    |    |    |    |    | INTEGER symbol table offset read from file
+029 dsPointer    |    |    |    |    | DU |    |    | DU |    |    |    |    |    |    |    | INTEGER description area offset read from file
+                 |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |   REAL in ubuildSrc, INTEGER in udefVars
+030 VDCount      |    |    |    |    |    |    | DU | DU |    |    |    |    |    |    |    | INTEGER variable file record counter
+031 which        |    |    |    | DUP| DU | DUP|    | DU | DUP|    |    |    |    |    |    | INTEGER recursion count
+                 |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |   Received by ulSort,uvSort and udsSort as which
+032 count        |    | DU |    |    |    |    |    |    |    |    |    | DU |    |    |    | INTEGER counter variable
+033 cntr         |    |    |    |    |    |    |    | DU |    |    |    | DU | DU |    |    | INTEGER general counter
+034 modSize      |    | DU |    |    | DUP|    | DUP|    |    |    |    |    |    |    |    | REAL module size
+035 execOff      |    | DU | DUP|    | DUP|    |    |    |    | DUP|    |    |    |    |    | REAL execution offset
+036 dataOff      |    | DU | DUP|    |    |    |    |    |    | DUP|    |    |    |    |    | REAL first DATA statement offset
+037 symTabOff    |    | DU | DUP|    | DUP|    | DUP| DUP|    |    |    |    |    |    |    | REAL module symbol table offset
+038 descOff      |    | DU | DUP|    | DUP|    |    | DUP|    | DUP|    |    |    |    |    | REAL description area offset
+039 realVal      |    |    | DU |    |    |    |    |    |    | DU |    |    |    |    |    | REAL value read from I-Code module
+040 mSize        |    |    |    |    |    |    | DU | DU |    |    |    |    |    |    |    | REAL symbol table size
+041 outOpen      | DU | DU |    |    |    |    |    |    |    |    |    |    | DU |    | DU | BOOLEAN output path open/closed
+042 hasRecords   | DU |    | DU | DU |    |    |    | DU |    | DU |    |    |    |    | DU | BOOLEAN this module has record variables
+043 outExists    |    | DU |    |    |    |    |    | DUP|    |    |    |    |    |    |    | BOOLEAN output file exists
+044 verbose      |    | DU | DUP|    | DUP|    | DUP| DUP|    | DUP|    |    |    |    |    | BOOLEAN send output to screen
+045 found        |    |    | DU |    |    |    | DU | DU |    | DU |    |    |    |    |    | BOOLEAN disk file record exists
+046 nextVar      |    |    | DU |    |    |    |    |    |    | DU |    |    |    |    |    | BOOLEAN is a NEXT statement variable reference
+047 forVar       |    |    | DU |    |    |    |    |    |    | DU |    |    |    |    |    | BOOLEAN is a FOR statement variable reference
+048 creOp        |    |    | DU |    |    |    |    |    |    | DU |    |    |    |    |    | BOOLEAN is a CREATE or OPEN statement
+049 isRestore    |    |    | DU |    |    |    |    |    |    | DU |    |    |    |    |    | BOOLEAN is a RESTORE statement
+050 vOpen        |    |    | DU |    | DU |    | DU | DU |    | DU |    |    |    |    | DU | BOOLEAN variable file path open/closed
+051 lnOpen       |    |    | DU |    |    |    |    |    |    | DU |    |    |    | DU |    | BOOLEAN line file path open/closed
+052 dOpen        |    |    | DU |    | DU |    |    | DU |    | DU |    |    |    |    | DU | BOOLEAN data file path open/closed
+053 btemp        |    |    |    | DU |    | DU |    |    | DU |    |    |    |    |    |    | BOOLEAN cutoff
+054 validated    |    |    |    |    |    |    | DU | DU |    |    |    |    |    |    |    | BOOLEAN symbol table entry validation flag
+055 hex          |    |    |    |    |    |    |    |    |    | DU | DUP|    |    |    |    | STRING Passed to uhex$ for hex value (4 characters)
+056 version      | DU | DU | DU |    |    |    |    | DU |    | DU |    |    | DU |    |    | STRING unpack version number (8 characters)
+057 dataDir      | DU | DU | DUP|    | DUP|    | DUP| DUP|    | DUP|    |    | DU |    |    | STRING data directory (16 characters)
+058 outFile      | DU | DU |    |    |    |    |    | DUP|    |    |    |    | DU |    | DU | STRING output filename (29 characters)
+059 modName      |    | DU | DUP|    |    |    |    |    |    |    |    |    |    |    |    | STRING module name (29 characters)
+060 vFile        |    |    | DU |    | DU |    | DU | DU |    | DU |    |    |    |    | DU | STRING variable records file (29 characters)
+061 lnFile       |    |    | DU |    |    |    |    |    |    | DU |    |    |    | DU |    | STRING line reference file (29 characters)
+062 dFile        |    |    | DU |    | DU |    |    | DU |    | DU |    |    |    |    | DU | STRING data file path (29 characters)
+063 subName      |    |    |    |    | DU |    | DU |    |    |    |    |    |    |    |    | STRING variable name string (29 characters)
+064 tName        |    |    |    |    | DU |    |    | DU |    |    |    |    |    |    |    | STRING temp variable name string (29 characters)
+065 source       |    |    |    |    |    |    |    | DU |    | DU |    |    |    |    |    | STRING sourcce statement string (512 characters)
+================ | == | == | == | == | == | == | == | == | == | == | == | == | == | == | == | =========================================================
+  Variable Name  | 01 | 02 | 03 | 04 | 05 | 06 | 07 | 08 | 09 | 10 | 11 | 12 | 13 | 14 | 15 | Description and Notes
+================ | == | == | == | == | == | == | == | == | == | == | == | == | == | == | == | =========================================================
+createUDB        | 13 Variables (11 Common)  02 Unique  00 Parameter Variables              | 
+066 loopCnt      | DU |    |    |    |    |    |    |    |    |    |    |    |    |    |    | INTEGER generic loop counter
+067 tVers        | DU |    |    |    |    |    |    |    |    |    |    |    |    |    |    | STRING stored version number (8 characters)
+================ | == | == | == | == | == | == | == | == | == | == | == | == | == | == | == | =========================================================
+  Variable Name  | 01 | 02 | 03 | 04 | 05 | 06 | 07 | 08 | 09 | 10 | 11 | 12 | 13 | 14 | 15 | Description and Notes
+================ | == | == | == | == | == | == | == | == | == | == | == | == | == | == | == | =========================================================
+unpack           | 35 Variables  17 Unique  02 Parameter Variables                          | 
+068 callCode     |    | DU |    |    |    |    |    |    |    |    |    |    |    |    |    | BYTE system call code (for SysCall)
+069 char         |    | DU |    |    |    |    |    |    |    |    |    |    |    |    |    | BYTE current character of module name
+070 packet(32)   |    | DU |    |    |    |    |    |    |    |    |    |    |    |    |    | BYTE terminal settings packet
+071 modSiz       |    | DU |    |    |    |    |    |    |    |    |    |    |    |    |    | INTEGER module size
+072 counter      |    | DU |    |    |    |    |    |    |    |    |    |    |    |    |    | INTEGER counter variable
+073 fileSize     |    | DU |    |    |    |    |    |    |    |    |    |    |    |    |    | REAL file size
+074 start        |    | DU |    |    |    |    |    |    |    |    |    |    |    |    |    | REAL file start offset
+075 pointer      |    | DU |    |    |    |    |    |    |    |    |    |    |    |    |    | REAL file pointer
+076 fileOpen     |    | DU |    |    |    |    |    |    |    |    |    |    |    |    |    | BOOLEAN input file open
+077 pPause       |    | DU |    |    |    |    |    |    |    |    |    |    |    |    |    | BOOLEAN page pause on/off
+078 skipped      |    | DU |    |    |    |    |    |    |    |    |    |    |    |    |    | BOOLEAN skipped module, not I-Code
+079 option       |    | DUP|    |    |    |    |    |    |    |    |    |    |    |    |    | STRING optional parameter passed to unpack (2 characters)
+080 part         |    | DU |    |    |    |    |    |    |    |    |    |    |    |    |    | STRING subroutine name (12 characters)
+081 fileName     |    | DU |    |    |    |    |    |    |    |    |    |    |    |    |    | STRING file name passed to unpack (29 characters)
+082 format       |    | DU |    |    |    |    |    |    |    |    |    |    |    |    |    | STRING output string format (50 characters)
+083 file         |    | DU |    |    |    |    |    |    |    |    |    |    |    |    |    | STRING stores infile (80 characters)
+084 infile       |    | DUP|    |    |    |    |    |    |    |    |    |    |    |    |    | STRING file path parameter (80 characters)
+================ | == | == | == | == | == | == | == | == | == | == | == | == | == | == | == | =========================================================
+  Variable Name  | 01 | 02 | 03 | 04 | 05 | 06 | 07 | 08 | 09 | 10 | 11 | 12 | 13 | 14 | 15 | Description and Notes
+================ | == | == | == | == | == | == | == | == | == | == | == | == | == | == | == | =========================================================
+udecode          | 50 Variables  11 Unique  10 Parameter Variables (Common)                 | 
+085 linkVal      |    |    | DU |    |    |    |    |    |    |    |    |    |    |    |    | BYTE link external token (not implemented)
+086 recCount     |    |    | DU |    |    |    |    |    |    |    |    |    |    |    |    | INTEGER record count (total records)
+                 |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |   Passed by udefVars as the constant value 0
+087 tInstr       |    |    | DU |    |    |    |    |    |    |    |    |    |    |    |    | INTEGER total instruction count
+088 quote        |    |    | DU |    |    |    |    |    |    |    |    |    |    |    |    | INTEGER string literal token value
+089 tmpTyp       |    |    | DU |    |    |    |    |    |    |    |    |    |    |    |    | INTEGER used to connect records to fields
+090 intOrReal    |    |    | DU |    |    |    |    |    |    |    |    |    |    |    |    | INTEGER used to determine FOR variable type
+091 namVar       |    |    | DU |    |    |    |    |    |    |    |    |    |    |    |    | BOOLEAN is a named variable
+092 isOn         |    |    | DU |    |    |    |    |    |    |    |    |    |    |    |    | BOOLEAN is an ON statement
+093 renum        |    |    | DU |    |    |    |    |    |    |    |    |    |    |    |    | BOOLEAN is renumbering line references
+094 potRec       |    |    | DU |    |    |    |    |    |    |    |    |    |    |    |    | BOOLEAN is a potential record variable
+095 isField      |    |    | DU |    |    |    |    |    |    |    |    |    |    |    |    | BOOLEAN is a record field variable
+096 extRef       |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    | BOOLEAN is an external reference
+                 |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |   RUN statement
+                 |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |   KILL statement
+                 |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |   OPEN or CREATE statement
+                 |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |   CLOSE statement
+                 |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |   DELETE statement
+                 |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |   CHAIN statement
+                 |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |   SHELL statement
+================ | == | == | == | == | == | == | == | == | == | == | == | == | == | == | == | =========================================================
+  Variable Name  | 01 | 02 | 03 | 04 | 05 | 06 | 07 | 08 | 09 | 10 | 11 | 12 | 13 | 14 | 15 | Description and Notes
+================ | == | == | == | == | == | == | == | == | == | == | == | == | == | == | == | =========================================================
+ulSort           | 12 Variables (11 Common)  01 Unique  06 Parameter Variables (5 Common)   | 
+097 linRefs(300) |    |    |    | DUP|    |    |    |    |    |    |    |    |    |    |    | LNREF Passed by udecode as linRefs
+================ | == | == | == | == | == | == | == | == | == | == | == | == | == | == | == | =========================================================
+  Variable Name  | 01 | 02 | 03 | 04 | 05 | 06 | 07 | 08 | 09 | 10 | 11 | 12 | 13 | 14 | 15 | Description and Notes
+================ | == | == | == | == | == | == | == | == | == | == | == | == | == | == | == | =========================================================
+udefVars         | 61 Variables  37 Unique  09 Parameter Variables (Common)                 | 
+098 tokenByte    |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | BYTE I-Code token read from DATA statement
+099 iToken       |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | BYTE variable type token
+100 fRecs        |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | INTEGER current variable file record number
+101 iPointer     |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | INTEGER current variable array record number
+102 vAddr        |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | INTEGER symbol table offset
+103 vSize        |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | INTEGER symbol table entry size
+104 dsAddr       |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | INTEGER description area offset
+105 dSize        |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | INTEGER data memory variable size
+106 dsSize       |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | INTEGER description area entry size
+107 dmAddr       |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | INTEGER data memory offset
+108 dmSize       |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | INTEGER data memory variable size
+109 pAddr        |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | INTEGER parameter offset
+110 pSize        |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | INTEGER parameter variable size
+111 fAddr        |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | INTEGER field variable offset
+112 fSize        |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | INTEGER field variable size
+113 element1     |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | INTEGER vector array variable size
+114 element2     |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | INTEGER table array variable size
+115 element3     |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | INTEGER matrix array variable size
+116 strRecLen    |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | INTEGER string/record size
+117 recSize      |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | INTEGER record variable size
+118 recArraySize |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | INTEGER record array variable size
+119 varNum       |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | INTEGER variable name number
+120 fldNum       |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | INTEGER field variable name number
+121 isSimple     |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | BOOLEAN is a simple variable
+122 isParam      |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | BOOLEAN is a parameter variable
+123 isString     |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | BOOLEAN is a string variable
+124 isRecord     |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | BOOLEAN is a record variable
+125 isArray      |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | BOOLEAN is an array variable
+126 isArray1     |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | BOOLEAN is a vector array (1 dimension)
+127 isArray2     |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | BOOLEAN is a table array (2 dimensions)
+128 isArray3     |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | BOOLEAN is a matrix array (3 dimensions)
+129 isField      |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | BOOLEAN is a field variable
+130 first        |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | BOOLEAN first pass through the variable records
+131 numStr       |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | STRING variable name build string (4 characters)
+132 strLen       |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | STRING string variable length string (7 characters)
+133 tokenString  |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | STRING variable token string (8 characters)
+134 arrayStr     |    |    |    |    | DU |    |    |    |    |    |    |    |    |    |    | STRING array variable size string (19 characters)
+================ | == | == | == | == | == | == | == | == | == | == | == | == | == | == | == | =========================================================
+  Variable Name  | 01 | 02 | 03 | 04 | 05 | 06 | 07 | 08 | 09 | 10 | 11 | 12 | 13 | 14 | 15 | Description and Notes
+================ | == | == | == | == | == | == | == | == | == | == | == | == | == | == | == | =========================================================
+uvSort           |09 Variables (8 Common)  01 Unique  06 Parameter Variables (5 Common)     | 
+135 varRecs(400) |    |    |    |    |    | DUP|    |    |    |    |    |    |    |    |    | VREC Passed by defVars as varRec
+================ | == | == | == | == | == | == | == | == | == | == | == | == | == | == | == | =========================================================
+  Variable Name  | 01 | 02 | 03 | 04 | 05 | 06 | 07 | 08 | 09 | 10 | 11 | 12 | 13 | 14 | 15 | Description and Notes
+================ | == | == | == | == | == | == | == | == | == | == | == | == | == | == | == | =========================================================
+usymTabVal       | 21 Variables  03 Unique  06 Parameter Variables (Common)                 | 
+136 mCount       |    |    |    |    |    |    | DU |    |    |    |    |    |    |    |    | INTEGER symbol table offset counter
+137 VDCnt        |    |    |    |    |    |    | DU |    |    |    |    |    |    |    |    | INTEGER symbol table entry found/NOT(found)
+138 vdtCnt       |    |    |    |    |    |    | DU |    |    |    |    |    |    |    |    | INTEGER symbol table entry counter
+================ | == | == | == | == | == | == | == | == | == | == | == | == | == | == | == | =========================================================
+  Variable Name  | 01 | 02 | 03 | 04 | 05 | 06 | 07 | 08 | 09 | 10 | 11 | 12 | 13 | 14 | 15 | Description and Notes
+================ | == | == | == | == | == | == | == | == | == | == | == | == | == | == | == | =========================================================
+ubuildSrc        | 50 Variables  19 Unique  10 Parameter Variables (Common)                 | 
+139 tmpTyp       |    |    |    |    |    |    |    | DU |    |    |    |    |    |    |    | BYTE temporary variable type token
+140 recCnt       |    |    |    |    |    |    |    | DU |    |    |    |    |    |    |    | INTEGER record variable count
+141 posVal       |    |    |    |    |    |    |    | DU |    |    |    |    |    |    |    | INTEGER SUBSTR position
+142 varCntr      |    |    |    |    |    |    |    | DU |    |    |    |    |    |    |    | INTEGER dimension statement variable counter
+143 dsatCnt      |    |    |    |    |    |    |    | DU |    |    |    |    |    |    |    | INTEGER description area entry counter
+144 ucCnt        |    |    |    |    |    |    |    | DU |    |    |    |    |    |    |    | INTEGER TYPE with no used fields
+145 gapSize(20)  |    |    |    |    |    |    |    | DU |    |    |    |    |    |    |    | INTEGER size of gap in an unidentified entry in the
+                 |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |   description area
+146 gapCnt       |    |    |    |    |    |    |    | DU |    |    |    |    |    |    |    | INTEGER gaps counter
+147 dsMCnt       |    |    |    |    |    |    |    | DU |    |    |    |    |    |    |    | INTEGER DMap entries counter
+148 typCnt       |    |    |    |    |    |    |    | DU |    |    |    |    |    |    |    | INTEGER TYPE statemment counter
+149 cntr2        |    |    |    |    |    |    |    | DU |    |    |    |    |    |    |    | INTEGER general counter
+150 tRec         |    |    |    |    |    |    |    | DU |    |    |    |    |    |    |    | INTEGER comparison value
+151 tSiz         |    |    |    |    |    |    |    | DU |    |    |    |    |    |    |    | INTEGER parent record variable value
+152 tVar         |    |    |    |    |    |    |    | DU |    |    |    |    |    |    |    | INTEGER parent record token value
+153 nextOff      |    |    |    |    |    |    |    | DU |    |    |    |    |    |    |    | REAL loop counter, not sure why it's a REAL
+154 gapOff(20)   |    |    |    |    |    |    |    | DU |    |    |    |    |    |    |    | REAL offset of gap in a type variable
+155 endOfType    |    |    |    |    |    |    |    | DU |    |    |    |    |    |    |    | BOOLEAN end of type variable flag
+156 tStrLen      |    |    |    |    |    |    |    | DU |    |    |    |    |    |    |    | STRING temporary string variable length string
+                 |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |   (7 characters)
+157 typName      |    |    |    |    |    |    |    | DU |    |    |    |    |    |    |    | STRING TYPE variable name string (7 characters)
+================ | == | == | == | == | == | == | == | == | == | == | == | == | == | == | == | =========================================================
+  Variable Name  | 01 | 02 | 03 | 04 | 05 | 06 | 07 | 08 | 09 | 10 | 11 | 12 | 13 | 14 | 15 | Description and Notes
+================ | == | == | == | == | == | == | == | == | == | == | == | == | == | == | == | =========================================================
+udsSort          | 08 Variables (7 Common)  01 Unique  05 Parameter Variables (4 Common)    | 
+158 DSMaps(100)  |    |    |    |    |    |    |    |    | DUP|    |    |    |    |    |    | DSMP Passed by ubuildSrc as DSMap
+================ | == | == | == | == | == | == | == | == | == | == | == | == | == | == | == | =========================================================
+  Variable Name  | 01 | 02 | 03 | 04 | 05 | 06 | 07 | 08 | 09 | 10 | 11 | 12 | 13 | 14 | 15 | Description and Notes
+================ | == | == | == | == | == | == | == | == | == | == | == | == | == | == | == | =========================================================
+uinstruction     | 43 Variables  05 Unique  08 Parameter Variables (Common)                 | 
+159 varCnt       |    |    |    |    |    |    |    |    |    | DU |    |    |    |    |    | INTEGER variable record counter
+160 lrCnt        |    |    |    |    |    |    |    |    |    | DU |    |    |    |    |    | INTEGER line reference records counter
+161 filCnt       |    |    |    |    |    |    |    |    |    | DU |    |    |    |    |    | REAL file pointer
+162 hasLines     |    |    |    |    |    |    |    |    |    | DU |    |    |    |    |    | BOOLEAN this module has line numbers
+163 tokenName    |    |    |    |    |    |    |    |    |    | DU |    |    |    |    |    | STRING variable name token string (29 characters)
+================ | == | == | == | == | == | == | == | == | == | == | == | == | == | == | == | =========================================================
+  Variable Name  | 01 | 02 | 03 | 04 | 05 | 06 | 07 | 08 | 09 | 10 | 11 | 12 | 13 | 14 | 15 | Description and Notes
+================ | == | == | == | == | == | == | == | == | == | == | == | == | == | == | == | =========================================================
+uhex$            | 08 Variables (2 Common)  06 Unique  02 Parameter Variables (Common)      | 
+164 index        |    |    |    |    |    |    |    |    |    |    | DU |    |    |    |    | INTEGER counter
+165 hex_index    |    |    |    |    |    |    |    |    |    |    | DU |    |    |    |    | INTEGER counter for DATA read
+166 bit          |    |    |    |    |    |    |    |    |    |    | DU |    |    |    |    | INTEGER mask integer
+167 bit_result   |    |    |    |    |    |    |    |    |    |    | DU |    |    |    |    | INTEGER result of LAND
+168 hex_result   |    |    |    |    |    |    |    |    |    |    | DU |    |    |    |    | INTEGER result of nybble
+169 hex_bit      |    |    |    |    |    |    |    |    |    |    | DU |    |    |    |    | STRING hex value string character (1 character)
+================ | == | == | == | == | == | == | == | == | == | == | == | == | == | == | == | =========================================================
+  Variable Name  | 01 | 02 | 03 | 04 | 05 | 06 | 07 | 08 | 09 | 10 | 11 | 12 | 13 | 14 | 15 | Description and Notes
+================ | == | == | == | == | == | == | == | == | == | == | == | == | == | == | == | =========================================================
+uDRPN            | 10 Variables (2 Common)  08 Unique  01 Parameter Variable                | 
+170 place        |    |    |    |    |    |    |    |    |    |    |    | DU |    |    |    | INTEGER pointer to current character in inline
+171 length       |    |    |    |    |    |    |    |    |    |    |    | DU |    |    |    | INTEGER length of inline
+172 cnt          |    |    |    |    |    |    |    |    |    |    |    | DU |    |    |    | INTEGER counter variable
+173 parse        |    |    |    |    |    |    |    |    |    |    |    | DU |    |    |    | BOOLEAN for determining need of parsing
+174 char         |    |    |    |    |    |    |    |    |    |    |    | DU |    |    |    | STRING current character of inline (1 characters)
+175 templine(10) |    |    |    |    |    |    |    |    |    |    |    | DU |    |    |    | STRING work array for line parsing (400 characters)
+176 outline      |    |    |    |    |    |    |    |    |    |    |    | DU |    |    |    | STRING output line (512 characters)
+177 inline       |    |    |    |    |    |    |    |    |    |    |    | DUP|    |    |    | STRING line to be parsed (512 characters)
+                 |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |   Passed by instruction as source
+================ | == | == | == | == | == | == | == | == | == | == | == | == | == | == | == | =========================================================
+
+Support Procedures
+================ | == | == | == | == | == | == | == | == | == | == | == | == | == | == | == | =========================================================
+  Variable Name  | 01 | 02 | 03 | 04 | 05 | 06 | 07 | 08 | 09 | 10 | 11 | 12 | 13 | 14 | 15 | Description and Notes
+================ | == | == | == | == | == | == | == | == | == | == | == | == | == | == | == | =========================================================
+ureadInitDB      | 13 Variables  01 Unique  00 Parameters                                   | 
+178 cls          |    |    |    |    |    |    |    |    |    |    |    |    | DU |    |    | BYTE clear screen code
+179 col          |    |    |    |    |    |    |    |    |    |    |    |    | DU |    | DU | BYTE column position
+180 row          |    |    |    |    |    |    |    |    |    |    |    |    | DU |    | DU | BYTE row position
+181 tmpTkn       |    |    |    |    |    |    |    |    |    |    |    |    | DU |    | DU | INTEGER item count in DATA statement
+182 key          |    |    |    |    |    |    |    |    |    |    |    |    | DU |    | DU | STRING keypress character (1 characters)
+183 tmpCmd       |    |    |    |    |    |    |    |    |    |    |    |    | DU |    | DU | STRING (6 characters) keyword in DATA statement
+================ | == | == | == | == | == | == | == | == | == | == | == | == | == | == | == | =========================================================
+  Variable Name  | 01 | 02 | 03 | 04 | 05 | 06 | 07 | 08 | 09 | 10 | 11 | 12 | 13 | 14 | 15 | Description and Notes
+================ | == | == | == | == | == | == | == | == | == | == | == | == | == | == | == | =========================================================
+ureadLins        | 06 Variables (Common)  00 Unique  00 Parameters                          | 
+================ | == | == | == | == | == | == | == | == | == | == | == | == | == | == | == | =========================================================
+  Variable Name  | 01 | 02 | 03 | 04 | 05 | 06 | 07 | 08 | 09 | 10 | 11 | 12 | 13 | 14 | 15 | Description and Notes
+================ | == | == | == | == | == | == | == | == | == | == | == | == | == | == | == | =========================================================
+ureadVars        | 23 Variables  05 Unique  00 Parameters                                   | 
+184 rNum         |    |    |    |    |    |    |    |    |    |    |    |    |    |    | DU | INTEGER current variable record number
+185 delay        |    |    |    |    |    |    |    |    |    |    |    |    |    |    | DU | INTEGER action delay counter
+186 quit         |    |    |    |    |    |    |    |    |    |    |    |    |    | DU | DU | BOOLEAN quit procedure
+187 numRec       |    |    |    |    |    |    |    |    |    |    |    |    |    |    | DU | STRING input record number (3 characters)
+188 cPrompt1     |    |    |    |    |    |    |    |    |    |    |    |    |    |    | DU | STRING secondary input prompt (23 characters)
+189 cPrompt      |    |    |    |    |    |    |    |    |    |    |    |    |    |    | DU | STRING primary input prompt (63 characters)
+================ | == | == | == | == | == | == | == | == | == | == | == | == | == | == | == | =========================================================
+  Variable Name  | 01 | 02 | 03 | 04 | 05 | 06 | 07 | 08 | 09 | 10 | 11 | 12 | 13 | 14 | 15 | Description and Notes
+================ | == | == | == | == | == | == | == | == | == | == | == | == | == | == | == | =========================================================
